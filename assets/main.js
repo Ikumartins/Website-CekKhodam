@@ -1,15 +1,17 @@
-function cekKhodam(event){
+let checkedNames = [];
+
+function cekKhodam(event) {
     event.preventDefault();
-    let nama = $('#search').val();
-    if(nama == ''){
-        alert('Nama tidak boleh kosong!')
-    }else{
-        let status = [
-        'isi',
-        'kosong'
-        ]
+    let nama = $('#search').val().trim();
+    if (nama === '') {
+        alert('Nama tidak boleh kosong!');
+    } else if (checkedNames.includes(nama.toLowerCase())) {
+        alert('Nama sudah di cek!');
+    } else {
+        checkedNames.push(nama.toLowerCase());
+        let status = ['isi', 'kosong'];
         const randomStatus = Math.floor(Math.random() * status.length);
-        if(randomStatus == 0){
+        if (randomStatus === 0) {
             let khodam = [
                 'Ular Memble',
                 'Sapi Pamokol',
@@ -20,14 +22,13 @@ function cekKhodam(event){
             ];
             const random = Math.floor(Math.random() * khodam.length);
             $('#result').html(`${nama.toUpperCase()} - Khodam Kamu (${khodam[random]})`);
-            $('#search').val('');
-        }else{
+        } else {
             $('#result').html(`${nama.toUpperCase()} - KOSONG`);
-            $('#search').val('');
         }
+        $('#search').val('');
     }
 }
 
-$(document).ready(function (){
+$(document).ready(function () {
     $('#btn-search').click(cekKhodam);
-})
+});
